@@ -115,9 +115,16 @@ public class PlayerController : MonoBehaviour {
 
     public void StartExecuteState () {
         currentState = STATE_EXECUTE;
+        DeselectAllShip();
 
         foreach(PlayerShip ship in playerShips) {
             ship.isActivate = true;
+        }
+    }
+
+    public void CancelPlan () {
+        if (isAnyShipSelected) {
+            playerShips[selectedShipID].SetTargetPosition(playerShips[selectedShipID].transform.position);
         }
     }
 }

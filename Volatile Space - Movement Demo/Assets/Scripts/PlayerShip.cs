@@ -39,11 +39,13 @@ public class PlayerShip : MonoBehaviour {
     }
 
     private void Movement () {
-        if(Vector2.Distance(transform.position, targetPosition) <= minDistance) {
-            transform.position = new Vector3(targetPosition.x, targetPosition.y, transform.position.z);
+        Vector3 target = new Vector3(targetPosition.x, targetPosition.y, transform.position.z);
+
+        if (Vector2.Distance(transform.position, targetPosition) <= minDistance) {
+            transform.position = target;
         }
         else {
-            transform.position = Vector3.SmoothDamp(transform.position, new Vector3(targetPosition.x, targetPosition.y, transform.position.z), ref velocity, smoothTime);
+            transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothTime);
         }
     }
 
