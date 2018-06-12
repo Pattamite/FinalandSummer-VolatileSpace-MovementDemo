@@ -7,10 +7,17 @@ public class PlayerShip : MonoBehaviour {
     public bool isSelected { get; private set; }
     public int ID;
     public bool isDrawPreview;
+
+    [System.NonSerialized]
     public Vector2 targetPosition;
+
+    private Vector3 velocity = Vector3.zero;
+    public float smoothTime = 4f;
 
     public LineRenderer travelLine;
     public SpriteRenderer shipSprite;
+    public bool isActivate;
+    public float minDistance = 0.01f;
 
 	// Use this for initialization
 	void Start () {
@@ -20,11 +27,24 @@ public class PlayerShip : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (isActivate) {
+            Movement();
+            DrawPreviewLine();
+        }
 	}
 
     private void SetInitialValue () {
         isSelected = false;
+        isActivate = false;
+    }
+
+    private void Movement () {
+        if(Vector2.Distance(transform.position, targetPosition) <= minDistance) {
+            transform.position = new Vector3(targetPosition.x, targetPosition.y, transform.position.z);
+        }
+        else {
+            transform.position = Vector3.SmoothDamp(transform.position, new Vector3(targetPosition.x, targetPosition.y, transform.position.z), ref velocity, smoothTime);
+        }
     }
 
     private void OnCollisionEnter2D (Collision2D collision) {

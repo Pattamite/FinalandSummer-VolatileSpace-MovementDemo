@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
+    public static int STATE_PLAN = 0;
+    public static int STATE_EXECUTE = 1;
+
     public bool isDebug;
     public int UILayer = 5;
     public PlayerShip[] playerShips;
@@ -10,10 +13,13 @@ public class PlayerController : MonoBehaviour {
     public int selectedShipID { get; private set; }
     public bool isAnyShipSelected { get; private set; }
 
+    public int currentState { get; private set; }
+
 
     // Use this for initialization
     void Start () {
         SetInitialValue();
+        StartPlanState();
         if (isDebug) SetShipsID();
     }
 
@@ -60,18 +66,21 @@ public class PlayerController : MonoBehaviour {
     public void MouseClick (Vector2 position) {
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
         RaycastHit2D hit = Physics2D.Raycast(worldPosition, Vector2.zero, Mathf.Infinity, 1 << UILayer);
-        if(hit) {
-            PlayerShip playerShip = hit.transform.gameObject.GetComponent<PlayerShip>();
-            if (playerShip) {
-                SelectShip(playerShip.ID);
+
+        if (currentState == STATE_PLAN) {
+            if (hit) {
+                PlayerShip playerShip = hit.transform.gameObject.GetComponent<PlayerShip>();
+                if (playerShip) {
+                    SelectShip(playerShip.ID);
+                }
+                else {
+                    //TODO
+                }
             }
             else {
-                //TODO
-            }
-        }
-        else {
-            if (isAnyShipSelected) {
-                DeselectAllShip();
+                if (isAnyShipSelected) {
+                    DeselectAllShip();
+                }
             }
         }
     }
@@ -80,16 +89,35 @@ public class PlayerController : MonoBehaviour {
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
         RaycastHit2D hit = Physics2D.Raycast(worldPosition, Vector2.zero, Mathf.Infinity, 1 << UILayer);
 
-        if (isAnyShipSelected) {
-            playerShips[selectedShipID].SetTargetPosition(worldPosition);
-        }
-        else {
-            if (hit) {
-                PlayerShip playerShip = hit.transform.gameObject.GetComponent<PlayerShip>();
-                if (playerShip && !isAnyShipSelected) {
-                    SelectShip(playerShip.ID);
+        if (currentState == STATE_PLAN) {
+            if (isAnyShipSelected) {
+                playerShips[selectedShipID].SetTargetPosition(worldPosition);
+            }
+            else {
+                if (hit) {
+                    PlayerShip playerShip = hit.transform.gameObject.GetComponent<PlayerShip>();
+                    if (playerShip && !isAnyShipSelected) {
+                        SelectShip(playerShip.ID);
+                    }
                 }
             }
+        }
+    }
+
+    public void StartPlanState () {
+        currentState = STATE_PLAN;
+
+        foreach (PlayerShip ship in playerShips) {
+            ship.isActivate = false;
+            ship.targetPosition = ship.transform.position;
+        }
+    }
+
+    public void StartExecuteState () {
+        currentState = STATE_EXECUTE;
+
+        foreach(PlayerShip ship in playerShips) {
+            ship.isActivate = true;
         }
     }
 }

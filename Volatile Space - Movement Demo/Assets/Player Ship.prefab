@@ -236,9 +236,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 0
   isDrawPreview: 0
-  targetPosition: {x: 0, y: 0}
+  smoothTime: 1
   travelLine: {fileID: 120207686505190676}
   shipSprite: {fileID: 212936191149905624}
+  isActivate: 0
+  minDistance: 0.01
 --- !u!120 &120207686505190676
 LineRenderer:
   m_ObjectHideFlags: 1
