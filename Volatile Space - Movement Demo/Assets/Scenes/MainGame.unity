@@ -120,11 +120,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 120207686505190676, guid: bca2bc1271a3c134e942ef76279afbd5,
-        type: 2}
-      propertyPath: m_Positions.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4080012817520248, guid: bca2bc1271a3c134e942ef76279afbd5, type: 2}
       propertyPath: m_LocalPosition.x
       value: -0.1
@@ -155,26 +150,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4080012817520248, guid: bca2bc1271a3c134e942ef76279afbd5, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1013103509620756, guid: bca2bc1271a3c134e942ef76279afbd5, type: 2}
       propertyPath: m_Name
       value: Player Ship (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 120207686505190676, guid: bca2bc1271a3c134e942ef76279afbd5,
-        type: 2}
-      propertyPath: m_Positions.Array.data[1].x
-      value: 2.23
-      objectReference: {fileID: 0}
-    - target: {fileID: 120207686505190676, guid: bca2bc1271a3c134e942ef76279afbd5,
-        type: 2}
-      propertyPath: m_Positions.Array.data[1].z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114804735789550988, guid: bca2bc1271a3c134e942ef76279afbd5,
-        type: 2}
-      propertyPath: smoothTime
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bca2bc1271a3c134e942ef76279afbd5, type: 2}
@@ -262,7 +242,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 774518008}
+      - m_Target: {fileID: 333462767}
         m_MethodName: StartExecuteState
         m_Mode: 1
         m_Arguments:
@@ -319,6 +299,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08dec8f78d1884d40b3f5c6e13bcaaa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &333462766
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 333462768}
+  - component: {fileID: 333462767}
+  m_Layer: 0
+  m_Name: GameTracker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &333462767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 333462766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f7e79a12c6b7f4497d4e3acb1e1096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerShips:
+  - {fileID: 1842011497}
+  - {fileID: 15480747}
+  - {fileID: 1873665370}
+  isDebug: 1
+--- !u!4 &333462768
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 333462766}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.50874233, y: -0.4633964, z: -0.13671875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &774518007
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,12 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a0a79e74c22f9e46acb5271a56a09ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDebug: 1
   UILayer: 5
-  playerShips:
-  - {fileID: 1842011497}
-  - {fileID: 15480747}
-  - {fileID: 1873665370}
 --- !u!4 &774518009
 Transform:
   m_ObjectHideFlags: 0
@@ -552,12 +572,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4080012817520248, guid: bca2bc1271a3c134e942ef76279afbd5, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114804735789550988, guid: bca2bc1271a3c134e942ef76279afbd5,
+    - target: {fileID: 58968384637493986, guid: bca2bc1271a3c134e942ef76279afbd5,
         type: 2}
-      propertyPath: minDistance
-      value: 0.05
+      propertyPath: m_Radius
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bca2bc1271a3c134e942ef76279afbd5, type: 2}
@@ -622,7 +642,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1523106689
 GameObject:
@@ -748,11 +768,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4080012817520248, guid: bca2bc1271a3c134e942ef76279afbd5, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1013103509620756, guid: bca2bc1271a3c134e942ef76279afbd5, type: 2}
       propertyPath: m_Name
       value: Player Ship (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 50160003749864328, guid: bca2bc1271a3c134e942ef76279afbd5,
+        type: 2}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bca2bc1271a3c134e942ef76279afbd5, type: 2}
@@ -852,7 +877,7 @@ RectTransform:
   - {fileID: 286078266}
   - {fileID: 2103986904}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

@@ -6,16 +6,16 @@ using UnityEngine.UI;
 public class ExecuteButton : MonoBehaviour {
 
     private Button button;
-    private PlayerController playerController;
-	
-	void Start () {
+    private GameTracker gameTracker;
+
+    void Start () {
         button = GetComponent<Button>();
-        playerController = GameObject.FindObjectOfType<PlayerController>();
+        gameTracker = GameObject.FindObjectOfType<GameTracker>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(playerController.currentState == PlayerController.STATE_PLAN) {
+		if(gameTracker.currentState == GameTracker.STATE_PLAN) {
             button.interactable = true;
         }
         else {

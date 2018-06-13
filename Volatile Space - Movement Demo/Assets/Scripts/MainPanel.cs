@@ -23,12 +23,10 @@ public class MainPanel : MonoBehaviour, IPointerClickHandler, IDragHandler{
     }
 
     public void OnPointerClick (PointerEventData eventData) {
-        //print("Clicked " + eventData.position);
         playerController.MouseClick(eventData.position);
     }
 
     public void OnDrag (PointerEventData eventData) {
-        //print("Dragged " + eventData.position);
         playerController.MouseDrag(eventData.position);
     }
 }

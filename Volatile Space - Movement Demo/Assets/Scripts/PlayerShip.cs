@@ -20,6 +20,9 @@ public class PlayerShip : MonoBehaviour {
     public bool isActivate;
     public float minDistance = 0.01f;
 
+    public float timeLimit = 5f;
+    private float currentTime = 0f;
+
 	// Use this for initialization
 	void Start () {
         SetInitialValue();
@@ -31,6 +34,7 @@ public class PlayerShip : MonoBehaviour {
         if (isActivate) {
             Movement();
             DrawPreviewLine();
+            CheckActivateTime();
         }
 	}
 
@@ -45,14 +49,24 @@ public class PlayerShip : MonoBehaviour {
 
         if (Vector2.Distance(transform.position, targetPosition) <= minDistance) {
             transform.position = target;
-            if (!isExecuteDone) {
-                print(gameObject.name + " is done!");
-                isExecuteDone = true;
-            }
+            ExecuteDone();
         }
         else {
             transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothTime);
         }
+    }
+
+    private void CheckActivateTime () {
+        currentTime += Time.deltaTime;
+        if(currentTime >= timeLimit) {
+            ExecuteDone();
+        }
+    }
+
+    private void ExecuteDone () {
+        Debug.Log(gameObject.name + " is done!");
+        isExecuteDone = true;
+        isActivate = false;
     }
 
     private void OnCollisionEnter2D (Collision2D collision) {
@@ -89,7 +103,8 @@ public class PlayerShip : MonoBehaviour {
     }
 
     public void StartExecuteState () {
+        currentTime = 0;
         isActivate = true;
-        print(gameObject.name + " start");
+        Debug.Log(gameObject.name + " start");
     }
 }
