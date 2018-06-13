@@ -17,6 +17,7 @@ public class PlayerShip : MonoBehaviour {
 
     public LineRenderer travelLine;
     public SpriteRenderer shipSprite;
+    public SpriteRenderer selectSprite;
     public bool isActivate;
     public float minDistance = 0.01f;
 
@@ -28,6 +29,7 @@ public class PlayerShip : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         SetInitialValue();
+        Deselect();
     }
 	
 	// Update is called once per frame
@@ -76,14 +78,12 @@ public class PlayerShip : MonoBehaviour {
 
     public void Select () {
         isSelected = true;
-
-        shipSprite.color = new Color(1, 1, 1, 0.5f);
+        selectSprite.gameObject.SetActive(true);
     }
 
     public void Deselect () {
         isSelected = false;
-
-        shipSprite.color = new Color(1, 1, 1, 1);
+        selectSprite.gameObject.SetActive(false);
     }
 
     public void SetTargetPosition (Vector2 position) {
