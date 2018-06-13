@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour {
     public int currentState { get; private set; }
 
 
-    // Use this for initialization
     void Start () {
         SetInitialValue();
         StartPlanState();
@@ -24,10 +23,9 @@ public class PlayerController : MonoBehaviour {
     }
 
 	
-	// Update is called once per frame
 	void Update () {
-		
-	}
+        UpdateState();
+    }
 
     private void SetInitialValue () {
         selectedShipID = -1;
@@ -108,8 +106,7 @@ public class PlayerController : MonoBehaviour {
         currentState = STATE_PLAN;
 
         foreach (PlayerShip ship in playerShips) {
-            ship.isActivate = false;
-            ship.targetPosition = ship.transform.position;
+            ship.StartPlanState();
         }
     }
 
@@ -118,13 +115,31 @@ public class PlayerController : MonoBehaviour {
         DeselectAllShip();
 
         foreach(PlayerShip ship in playerShips) {
-            ship.isActivate = true;
+            ship.StartExecuteState();
         }
     }
 
     public void CancelPlan () {
         if (isAnyShipSelected) {
             playerShips[selectedShipID].SetTargetPosition(playerShips[selectedShipID].transform.position);
+            DeselectAllShip();
+        }
+    }
+
+    public bool IsAllShipDone () {
+        bool answer = true;
+        foreach(PlayerShip ship in playerShips) {
+            answer &= ship.isExecuteDone;
+        }
+
+        return answer;
+    }
+
+    private void UpdateState () {
+        if(currentState == STATE_EXECUTE) {
+            if (IsAllShipDone()) {
+                StartPlanState();
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ public class PlayerShip : MonoBehaviour {
     public bool isSelected { get; private set; }
     public int ID;
     public bool isDrawPreview;
+    public bool isExecuteDone;
 
     [System.NonSerialized]
     public Vector2 targetPosition;
@@ -36,6 +37,7 @@ public class PlayerShip : MonoBehaviour {
     private void SetInitialValue () {
         isSelected = false;
         isActivate = false;
+        isExecuteDone = false;
     }
 
     private void Movement () {
@@ -43,6 +45,10 @@ public class PlayerShip : MonoBehaviour {
 
         if (Vector2.Distance(transform.position, targetPosition) <= minDistance) {
             transform.position = target;
+            if (!isExecuteDone) {
+                print(gameObject.name + " is done!");
+                isExecuteDone = true;
+            }
         }
         else {
             transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothTime);
@@ -74,5 +80,16 @@ public class PlayerShip : MonoBehaviour {
         travelLine.positionCount = 2;
         travelLine.SetPosition(0, gameObject.transform.position);
         travelLine.SetPosition(1, new Vector3(targetPosition.x, targetPosition.y, gameObject.transform.position.z));
+    }
+
+    public void StartPlanState () {
+        isExecuteDone = false;
+        isActivate = false;
+        targetPosition = transform.position;
+    }
+
+    public void StartExecuteState () {
+        isActivate = true;
+        print(gameObject.name + " start");
     }
 }
