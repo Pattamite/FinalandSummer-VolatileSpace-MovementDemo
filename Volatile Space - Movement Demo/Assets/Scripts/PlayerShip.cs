@@ -23,10 +23,11 @@ public class PlayerShip : MonoBehaviour {
     public float timeLimit = 5f;
     private float currentTime = 0f;
 
+    public PlayerShipWeapon weapon;
+
 	// Use this for initialization
 	void Start () {
         SetInitialValue();
-
     }
 	
 	// Update is called once per frame
@@ -64,13 +65,13 @@ public class PlayerShip : MonoBehaviour {
     }
 
     private void ExecuteDone () {
-        Debug.Log(gameObject.name + " is done!");
+        //Debug.Log(gameObject.name + " is done!");
         isExecuteDone = true;
         isActivate = false;
     }
 
     private void OnCollisionEnter2D (Collision2D collision) {
-        Debug.Log("Player (" + gameObject.name + ") hit");
+        //Debug.Log("Player (" + gameObject.name + ") hit");
     }
 
     public void Select () {
@@ -100,11 +101,12 @@ public class PlayerShip : MonoBehaviour {
         isExecuteDone = false;
         isActivate = false;
         targetPosition = transform.position;
+        weapon.ResetAttackCount();
     }
 
     public void StartExecuteState () {
         currentTime = 0;
         isActivate = true;
-        Debug.Log(gameObject.name + " start");
+        //Debug.Log(gameObject.name + " start");
     }
 }
