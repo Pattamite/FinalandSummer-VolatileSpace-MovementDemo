@@ -68,8 +68,6 @@ public class PlayerEnergyController : MonoBehaviour {
 
 
     public void ValueChangeCheck () {
-        print(shipEnergy.gameObject.name + "change");
-
         if (shipEnergy.SetEnergy(Mathf.RoundToInt(shieldSlider.value), Mathf.RoundToInt(weaponSlider.value), Mathf.RoundToInt(moveSlider.value))) {
             SetCurrentValue();
         }

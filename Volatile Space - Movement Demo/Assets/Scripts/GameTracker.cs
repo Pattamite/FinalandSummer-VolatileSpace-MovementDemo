@@ -71,4 +71,8 @@ public class GameTracker : MonoBehaviour {
     public void ResetShipTargetPosition(int ID) {
         playerShips[ID].SetTargetPosition(playerShips[ID].transform.position);
     }
+
+    public PlayerShipEnergy GetPlayerShipEnergy(int ID) {
+        return playerShips[ID].gameObject.GetComponent<PlayerShipEnergy>();
+    }
 }

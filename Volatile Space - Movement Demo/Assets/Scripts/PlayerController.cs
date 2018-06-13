@@ -28,8 +28,6 @@ public class PlayerController : MonoBehaviour {
         energyController = GetComponent<PlayerEnergyController>();
     }
 
-    
-
     public void SelectShip (int ID) {
         if(isAnyShipSelected) {
             gameTracker.playerShips[selectedShipID].Deselect();
@@ -38,7 +36,7 @@ public class PlayerController : MonoBehaviour {
             gameTracker.playerShips[ID].Select();
             selectedShipID = ID;
             isAnyShipSelected = true;
-            energyController.ShipSelected(gameTracker.playerShips[ID].gameObject.GetComponent<PlayerShipEnergy>());
+            energyController.ShipSelected(gameTracker.GetPlayerShipEnergy(ID));
         }
         else {
             Debug.LogError("PlayerController (SelectShip): ID = " + ID.ToString() + " is out of bound");
@@ -62,10 +60,10 @@ public class PlayerController : MonoBehaviour {
         if (gameTracker.currentState == GameTracker.STATE_PLAN) {
             if (hit) {
                 PlayerShip playerShip = hit.transform.gameObject.GetComponent<PlayerShip>();
-                if (playerShip) {
+                if (playerShip && playerShip.tag == "Player") {
                     SelectShip(playerShip.ID);
                 }
-                else {
+                else if(playerShip && playerShip.tag == "Enemy") {
                     //TODO
                 }
             }
@@ -88,7 +86,7 @@ public class PlayerController : MonoBehaviour {
             else {
                 if (hit) {
                     PlayerShip playerShip = hit.transform.gameObject.GetComponent<PlayerShip>();
-                    if (playerShip && !isAnyShipSelected) {
+                    if (playerShip && !isAnyShipSelected && playerShip.tag == "Player") {
                         SelectShip(playerShip.ID);
                     }
                 }
