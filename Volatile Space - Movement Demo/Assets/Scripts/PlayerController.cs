@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour {
     [System.NonSerialized]
     public GameTracker gameTracker;
 
+    private PlayerEnergyController energyController;
+
     void Start () {
         SetInitialValue();
     }
@@ -23,6 +25,7 @@ public class PlayerController : MonoBehaviour {
         selectedShipID = -1;
         isAnyShipSelected = false;
         gameTracker = FindObjectOfType<GameTracker>();
+        energyController = GetComponent<PlayerEnergyController>();
     }
 
     
@@ -35,6 +38,7 @@ public class PlayerController : MonoBehaviour {
             gameTracker.playerShips[ID].Select();
             selectedShipID = ID;
             isAnyShipSelected = true;
+            energyController.ShipSelected(gameTracker.playerShips[ID].gameObject.GetComponent<PlayerShipEnergy>());
         }
         else {
             Debug.LogError("PlayerController (SelectShip): ID = " + ID.ToString() + " is out of bound");
@@ -48,6 +52,7 @@ public class PlayerController : MonoBehaviour {
         }
         selectedShipID = -1;
         isAnyShipSelected = false;
+        energyController.ShipDeselected();
     }
 
     public void MouseClick (Vector2 position) {
