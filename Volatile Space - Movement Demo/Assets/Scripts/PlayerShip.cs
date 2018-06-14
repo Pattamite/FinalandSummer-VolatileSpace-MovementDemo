@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerShip : MonoBehaviour {
-
+    public bool isDebug;
     public bool useSimepleMovement;
     public bool isSelected { get; private set; }
     public int ID;
@@ -15,7 +15,9 @@ public class PlayerShip : MonoBehaviour {
     public Vector2 targetPosition;
 
     private Vector3 velocity = Vector3.zero;
-    public float smoothTime = 4f;
+    private float angleVelocity = 0;
+    public float smoothDistanceTime = 4f;
+    public float smoothAngleTime = 1f;
 
     [Range(1f, 5f)]
     public float movementLimitValue = 2.5f;
@@ -26,6 +28,7 @@ public class PlayerShip : MonoBehaviour {
     public SpriteRenderer weaponAreaSprite;
     public bool isActivate;
     public float minDistance = 0.01f;
+    public float minAngle = 1f;
 
     public float timeLimit = 5f;
     private float currentTime = 0f;
@@ -78,16 +81,39 @@ public class PlayerShip : MonoBehaviour {
 
     private void Movement () {
         Vector3 target = new Vector3(targetPosition.x, targetPosition.y, transform.position.z);
+        float currentDistance = Vector2.Distance(transform.position, targetPosition);
 
         if (useSimepleMovement) {
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, targetAngle);
 
-            if (Vector2.Distance(transform.position, targetPosition) <= minDistance) {
+            if (currentDistance <= minDistance) {
                 transform.position = target;
                 ExecuteDone();
             }
             else {
-                transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothTime);
+                transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothDistanceTime);
+            }
+        }
+        else {
+            if (currentDistance <= minDistance) {
+                transform.position = target;
+                ExecuteDone();
+            }
+            else {
+                targetAngle = Mathf.Atan2(targetPosition.y - transform.position.y, targetPosition.x - transform.position.x) * Mathf.Rad2Deg;
+                float deltaAngle = Mathf.DeltaAngle(transform.eulerAngles.z, targetAngle);
+                float absDeltaAngle = Mathf.Abs(deltaAngle);
+
+                if (absDeltaAngle <= minAngle) {
+                    transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, targetAngle);
+                    transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothDistanceTime);
+                }
+                else {
+                    float newAngle = Mathf.SmoothDampAngle(transform.eulerAngles.z, targetAngle, ref angleVelocity, smoothAngleTime);
+                    transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, newAngle);
+                    Vector3 tempTarget = target + (currentDistance * new Vector3(Mathf.Cos(transform.eulerAngles.z * Mathf.Deg2Rad), Mathf.Sin(transform.eulerAngles.z * Mathf.Deg2Rad), 0));
+                    transform.position = Vector3.SmoothDamp(transform.position, tempTarget, ref velocity, smoothDistanceTime);
+                }
             }
         }
 
@@ -104,7 +130,6 @@ public class PlayerShip : MonoBehaviour {
     private void ExecuteDone () {
         //Debug.Log(gameObject.name + " is done!");
         isExecuteDone = true;
-        isActivate = false;
     }
 
     private void OnCollisionEnter2D (Collision2D collision) {

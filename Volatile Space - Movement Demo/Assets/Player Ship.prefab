@@ -403,11 +403,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c85624ba5f92d4c8a3daf6299cbe42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useSimepleMovement: 1
+  useSimepleMovement: 0
   ID: 0
   isDrawPreview: 0
   isExecuteDone: 0
-  smoothTime: 1
+  smoothDistanceTime: 1
+  smoothAngleTime: 0.1
   movementLimitValue: 2.5
   travelLine: {fileID: 120207686505190676}
   shipSprite: {fileID: 212936191149905624}
@@ -415,6 +416,7 @@ MonoBehaviour:
   weaponAreaSprite: {fileID: 212434759027103400}
   isActivate: 0
   minDistance: 0.05
+  minAngle: 1
   timeLimit: 5
   weapon: {fileID: 114595315115443180}
   maxHP: 1
