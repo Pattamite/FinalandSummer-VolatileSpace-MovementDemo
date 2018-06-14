@@ -18,6 +18,7 @@ public class PlayerShip : MonoBehaviour {
     public LineRenderer travelLine;
     public SpriteRenderer shipSprite;
     public SpriteRenderer selectSprite;
+    public SpriteRenderer weaponAreaSprite;
     public bool isActivate;
     public float minDistance = 0.01f;
 
@@ -85,11 +86,13 @@ public class PlayerShip : MonoBehaviour {
     public void Select () {
         isSelected = true;
         selectSprite.gameObject.SetActive(true);
+        weaponAreaSprite.gameObject.SetActive(true);
     }
 
     public void Deselect () {
         isSelected = false;
         selectSprite.gameObject.SetActive(false);
+        weaponAreaSprite.gameObject.SetActive(false);
     }
 
     public void SetTargetPosition (Vector2 position) {
@@ -123,8 +126,13 @@ public class PlayerShip : MonoBehaviour {
         }
     }
 
-    public void Attack(PlayerShip ship) {
-        ship.GetHit(energy.currentWeapon);
+    public bool Attack(PlayerShip ship) {
+        if (energy.currentWeapon > 0) {
+            ship.GetHit(energy.currentWeapon);
+            return true;
+        }
+        else return false;
+        
     }
 
     private void Dead () {

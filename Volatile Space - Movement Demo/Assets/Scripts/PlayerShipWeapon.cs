@@ -26,7 +26,7 @@ public class PlayerShipWeapon : MonoBehaviour {
         lineRenderer = GetComponent<LineRenderer>();
     }
 
-    private void OnTriggerEnter2D (Collider2D collision) {
+    private void OnTriggerStay2D (Collider2D collision) {
         if (playerShip.isActivate) {
             Transform otherParentTransform = collision.transform.parent;
             GameObject other;
@@ -35,12 +35,13 @@ public class PlayerShipWeapon : MonoBehaviour {
                 PlayerShip ship = other.GetComponent<PlayerShip>();
                 if(ship && other.tag == "Enemy") {
                     if(attackCount < maxAttackPerTurn) {
-                        attackCount++;
-                        Debug.Log("Attack " + other.name);
-                        playerShip.Attack(ship);
-                        StopCoroutine(RemoveDraw());
-                        DrawFire(ship);
-                        StartCoroutine(RemoveDraw());
+                        if (playerShip.Attack(ship)) {
+                            attackCount++;
+                            Debug.Log("Attack " + other.name);
+                            StopCoroutine(RemoveDraw());
+                            DrawFire(ship);
+                            StartCoroutine(RemoveDraw());
+                        }
                     }
                 }
             }
