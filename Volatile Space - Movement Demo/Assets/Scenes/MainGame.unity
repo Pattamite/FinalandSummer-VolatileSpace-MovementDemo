@@ -193,12 +193,17 @@ Prefab:
     - target: {fileID: 114804735789550988, guid: bca2bc1271a3c134e942ef76279afbd5,
         type: 2}
       propertyPath: isDebug
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114804735789550988, guid: bca2bc1271a3c134e942ef76279afbd5,
         type: 2}
       propertyPath: timeLimit
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114804735789550988, guid: bca2bc1271a3c134e942ef76279afbd5,
+        type: 2}
+      propertyPath: isDrawPreviewAllTime
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bca2bc1271a3c134e942ef76279afbd5, type: 2}
@@ -514,6 +519,11 @@ Prefab:
         type: 2}
       propertyPath: timeLimit
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114804735789550988, guid: bca2bc1271a3c134e942ef76279afbd5,
+        type: 2}
+      propertyPath: isDrawPreviewAllTime
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bca2bc1271a3c134e942ef76279afbd5, type: 2}
@@ -2112,6 +2122,11 @@ Prefab:
       propertyPath: timeLimit
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114804735789550988, guid: bca2bc1271a3c134e942ef76279afbd5,
+        type: 2}
+      propertyPath: isDrawPreviewAllTime
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bca2bc1271a3c134e942ef76279afbd5, type: 2}
   m_IsPrefabParent: 0
@@ -2367,6 +2382,11 @@ Prefab:
         type: 2}
       propertyPath: timeLimit
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114804735789550988, guid: bca2bc1271a3c134e942ef76279afbd5,
+        type: 2}
+      propertyPath: isDrawPreviewAllTime
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bca2bc1271a3c134e942ef76279afbd5, type: 2}
@@ -2797,6 +2817,11 @@ Prefab:
       propertyPath: timeLimit
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114804735789550988, guid: bca2bc1271a3c134e942ef76279afbd5,
+        type: 2}
+      propertyPath: isDrawPreviewAllTime
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bca2bc1271a3c134e942ef76279afbd5, type: 2}
   m_IsPrefabParent: 0
@@ -2891,6 +2916,11 @@ Prefab:
         type: 2}
       propertyPath: timeLimit
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114804735789550988, guid: bca2bc1271a3c134e942ef76279afbd5,
+        type: 2}
+      propertyPath: isDrawPreviewAllTime
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bca2bc1271a3c134e942ef76279afbd5, type: 2}

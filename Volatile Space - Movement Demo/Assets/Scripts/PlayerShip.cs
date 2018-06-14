@@ -8,7 +8,7 @@ public class PlayerShip : MonoBehaviour {
     public bool useSimepleMovement;
     public bool isSelected { get; private set; }
     public int ID;
-    public bool isDrawPreview;
+    public bool isDrawPreviewAllTime;
     public bool isExecuteDone;
 
     [System.NonSerialized]
@@ -77,6 +77,9 @@ public class PlayerShip : MonoBehaviour {
         currentHP = maxHP;
         energy = GetComponent<PlayerShipEnergy>();
         targetAngle = transform.eulerAngles.z;
+        if (isDrawPreviewAllTime) {
+            weaponAreaSprite.gameObject.SetActive(true);
+        }
     }
 
     private void Movement () {
@@ -145,7 +148,7 @@ public class PlayerShip : MonoBehaviour {
     public void Deselect () {
         isSelected = false;
         selectSprite.gameObject.SetActive(false);
-        weaponAreaSprite.gameObject.SetActive(false);
+        if (!isDrawPreviewAllTime) weaponAreaSprite.gameObject.SetActive(false);
     }
 
     public void SetTargetPosition (Vector2 position) {
