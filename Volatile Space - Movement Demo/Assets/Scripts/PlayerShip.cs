@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerShip : MonoBehaviour {
 
+    public bool useSimepleMovement;
     public bool isSelected { get; private set; }
     public int ID;
     public bool isDrawPreview;
@@ -14,6 +16,9 @@ public class PlayerShip : MonoBehaviour {
 
     private Vector3 velocity = Vector3.zero;
     public float smoothTime = 4f;
+
+    [Range(1f, 5f)]
+    public float movementLimitValue = 2.5f;
 
     public LineRenderer travelLine;
     public SpriteRenderer shipSprite;
@@ -31,8 +36,13 @@ public class PlayerShip : MonoBehaviour {
     public int maxHP = 1;
     private int currentHP;
 
-	// Use this for initialization
-	void Start () {
+    public float[] maxDistance;
+    public float[] maxAngle;
+
+    private float targetAngle;
+
+    // Use this for initialization
+    void Start () {
         SetInitialValue();
         Deselect();
     }
@@ -46,24 +56,42 @@ public class PlayerShip : MonoBehaviour {
         }
 	}
 
+    private void OnValidate () {
+        energy = GetComponent<PlayerShipEnergy>();
+        if (maxDistance.Length != (energy.maxMove + 1)) {
+            Array.Resize<float>(ref maxDistance, energy.maxMove + 1);
+        }
+
+        if (maxAngle.Length != (energy.maxMove + 1)) {
+            Array.Resize<float>(ref maxAngle, energy.maxMove + 1);
+        }
+    }
+
     private void SetInitialValue () {
         isSelected = false;
         isActivate = false;
         isExecuteDone = false;
         currentHP = maxHP;
         energy = GetComponent<PlayerShipEnergy>();
+        targetAngle = transform.eulerAngles.z;
     }
 
     private void Movement () {
         Vector3 target = new Vector3(targetPosition.x, targetPosition.y, transform.position.z);
 
-        if (Vector2.Distance(transform.position, targetPosition) <= minDistance) {
-            transform.position = target;
-            ExecuteDone();
+        if (useSimepleMovement) {
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, targetAngle);
+
+            if (Vector2.Distance(transform.position, targetPosition) <= minDistance) {
+                transform.position = target;
+                ExecuteDone();
+            }
+            else {
+                transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothTime);
+            }
         }
-        else {
-            transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothTime);
-        }
+
+        
     }
 
     private void CheckActivateTime () {
@@ -96,7 +124,26 @@ public class PlayerShip : MonoBehaviour {
     }
 
     public void SetTargetPosition (Vector2 position) {
-        targetPosition = position;
+        float distance = Vector2.Distance(transform.position, position);
+        targetAngle = Mathf.Atan2(position.y - transform.position.y, position.x - transform.position.x) * Mathf.Rad2Deg;
+        float deltaAngle = Mathf.DeltaAngle(transform.eulerAngles.z, targetAngle);
+        float absDeltaAngle = Mathf.Abs(deltaAngle);
+        float currentMaxDistance = maxDistance[energy.currentMove];
+        float currentMaxAngle = maxAngle[energy.currentMove];
+
+        if (absDeltaAngle <= currentMaxAngle && distance <= GetMaxDistanceByAngle(deltaAngle, currentMaxDistance)) {
+            targetPosition = position;
+        }
+        else {
+            deltaAngle = (deltaAngle / absDeltaAngle) * (absDeltaAngle <= currentMaxAngle ? absDeltaAngle : currentMaxAngle);
+            distance = (distance <= GetMaxDistanceByAngle(deltaAngle, currentMaxDistance) ? distance : GetMaxDistanceByAngle(deltaAngle, currentMaxDistance));
+
+            float x = transform.position.x + (distance * Mathf.Cos((transform.eulerAngles.z + deltaAngle) * Mathf.Deg2Rad));
+            float y = transform.position.y + (distance * Mathf.Sin((transform.eulerAngles.z + deltaAngle) * Mathf.Deg2Rad));
+
+            targetPosition = new Vector2(x, y);
+        }
+
         DrawPreviewLine();
     }
 
@@ -137,5 +184,9 @@ public class PlayerShip : MonoBehaviour {
 
     private void Dead () {
         Destroy(gameObject);
+    }
+
+    private float GetMaxDistanceByAngle(float angle, float maxDistance) {
+        return ((Mathf.Cos(angle * Mathf.Deg2Rad) + movementLimitValue) / (movementLimitValue + 1)) * maxDistance;
     }
 }

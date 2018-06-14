@@ -150,8 +150,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1013103509620756}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.08, y: -2.46, z: -0.041412577}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -1.22, y: -3.75, z: -0.041412577}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4367248090915402}
@@ -162,7 +162,7 @@ Transform:
   - {fileID: 4715433285557462}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!4 &4101457258395418
 Transform:
   m_ObjectHideFlags: 1
@@ -195,13 +195,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1860353827327558}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4080012817520248}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!4 &4464230227834060
 Transform:
   m_ObjectHideFlags: 1
@@ -248,13 +248,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1333650503416980}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.051, y: 1.601, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 1.62, y: 0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4715433285557462}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!50 &50160003749864328
 Rigidbody2D:
   serializedVersion: 4
@@ -314,9 +314,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 0.32249737}
-      - {x: -0.17020619, y: -0.3110702}
-      - {x: 0.15861607, y: -0.31524402}
+    - - {x: 0.2950635, y: 0.0023219585}
+      - {x: -0.3046608, y: 0.17128873}
+      - {x: -0.31014442, y: -0.17138243}
 --- !u!60 &60517574371064748
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -341,12 +341,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.061560377, y: 2.8036659}
-      - {x: -0.95310897, y: 2.5679631}
-      - {x: -1.3440925, y: 2.230276}
-      - {x: 0.0003517866, y: 0.33947372}
-      - {x: 1.2289187, y: 2.2263846}
-      - {x: 0.758051, y: 2.5989618}
+    - - {x: 2.8267927, y: 0.07613778}
+      - {x: 2.5948935, y: 0.90884113}
+      - {x: 2.2673457, y: 1.3105242}
+      - {x: 0.3636365, y: 0.00071907043}
+      - {x: 2.256444, y: -1.2067575}
+      - {x: 2.575245, y: -0.8541832}
 --- !u!114 &114148706075151892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -403,10 +403,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c85624ba5f92d4c8a3daf6299cbe42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useSimepleMovement: 1
   ID: 0
   isDrawPreview: 0
   isExecuteDone: 0
   smoothTime: 1
+  movementLimitValue: 2.5
   travelLine: {fileID: 120207686505190676}
   shipSprite: {fileID: 212936191149905624}
   selectSprite: {fileID: 212345061225449842}
@@ -416,6 +418,20 @@ MonoBehaviour:
   timeLimit: 5
   weapon: {fileID: 114595315115443180}
   maxHP: 1
+  maxDistance:
+  - 0.5
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  maxAngle:
+  - 20
+  - 60
+  - 90
+  - 120
+  - 180
+  - 180
 --- !u!120 &120207686505190676
 LineRenderer:
   m_ObjectHideFlags: 1
