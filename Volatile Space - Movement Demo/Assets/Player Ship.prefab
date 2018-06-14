@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114148706075151892}
   m_Layer: 0
   m_Name: Player Ship
-  m_TagString: Player
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,8 +150,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1013103509620756}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -1.22, y: -3.75, z: -0.041412577}
+  m_LocalRotation: {x: 0, y: -0, z: 0.7071068, w: -0.7071068}
+  m_LocalPosition: {x: 0, y: 2.78, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4367248090915402}
@@ -162,7 +162,7 @@ Transform:
   - {fileID: 4715433285557462}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
 --- !u!4 &4101457258395418
 Transform:
   m_ObjectHideFlags: 1
@@ -403,21 +403,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c85624ba5f92d4c8a3daf6299cbe42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDebug: 0
   useSimepleMovement: 0
   ID: 0
-  isDrawPreview: 0
+  isDrawPreviewAllTime: 0
   isExecuteDone: 0
-  smoothDistanceTime: 1
-  smoothAngleTime: 0.1
+  smoothDistanceTime: 2.3
+  smoothAngleTime: 0.3
   movementLimitValue: 2.5
   travelLine: {fileID: 120207686505190676}
   shipSprite: {fileID: 212936191149905624}
   selectSprite: {fileID: 212345061225449842}
   weaponAreaSprite: {fileID: 212434759027103400}
   isActivate: 0
-  minDistance: 0.05
-  minAngle: 1
-  timeLimit: 5
+  minDistance: 0.1
+  minAngle: 5
+  timeLimit: 10
   weapon: {fileID: 114595315115443180}
   maxHP: 1
   maxDistance:
@@ -740,7 +741,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e01d23bbee4cc2c4ba4b4745b0569c04, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.49408746, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

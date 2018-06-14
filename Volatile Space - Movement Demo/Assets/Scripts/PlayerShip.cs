@@ -48,13 +48,14 @@ public class PlayerShip : MonoBehaviour {
     void Start () {
         SetInitialValue();
         Deselect();
+        StartPlanState();
     }
 	
 	// Update is called once per frame
 	void Update () {
         if (isActivate) {
             Movement();
-            DrawPreviewLine();
+            //DrawPreviewLine();
             CheckActivateTime();
         }
 	}
@@ -179,6 +180,10 @@ public class PlayerShip : MonoBehaviour {
         travelLine.positionCount = 2;
         travelLine.SetPosition(0, gameObject.transform.position);
         travelLine.SetPosition(1, new Vector3(targetPosition.x, targetPosition.y, gameObject.transform.position.z));
+    }
+
+    public void RemovePreViewLine () {
+        travelLine.positionCount = 0;
     }
 
     public void StartPlanState () {

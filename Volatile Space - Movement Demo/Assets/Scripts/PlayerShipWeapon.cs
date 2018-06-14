@@ -33,7 +33,7 @@ public class PlayerShipWeapon : MonoBehaviour {
             if (otherParentTransform) {
                 other = otherParentTransform.gameObject;
                 PlayerShip ship = other.GetComponent<PlayerShip>();
-                if(ship && other.tag == "Enemy") {
+                if(ship && other.tag != playerShip.tag) {
                     if(attackCount < maxAttackPerTurn) {
                         if (playerShip.Attack(ship)) {
                             attackCount++;

@@ -46,7 +46,9 @@ public class PlayerController : MonoBehaviour {
 
     public void DeselectAllShip () {
         foreach(PlayerShip ship in gameTracker.playerShips) {
-            ship.Deselect();
+            if (ship) {
+                ship.Deselect();
+            }
         }
         selectedShipID = -1;
         isAnyShipSelected = false;
@@ -57,14 +59,12 @@ public class PlayerController : MonoBehaviour {
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
         RaycastHit2D hit = Physics2D.Raycast(worldPosition, Vector2.zero, Mathf.Infinity, 1 << UILayer);
 
-        if (gameTracker.currentState == GameTracker.STATE_PLAN) {
+        if (gameTracker.currentState == GameTracker.STATE_PLAN_PLAYER_1 || gameTracker.currentState == GameTracker.STATE_PLAN_PLAYER_2) {
             if (hit) {
                 PlayerShip playerShip = hit.transform.gameObject.GetComponent<PlayerShip>();
-                if (playerShip && playerShip.tag == "Player") {
+                print(playerShip);
+                if (playerShip && playerShip.tag == gameTracker.currentTag) {
                     SelectShip(playerShip.ID);
-                }
-                else if(playerShip && playerShip.tag == "Enemy") {
-                    //TODO
                 }
             }
             else {
@@ -79,14 +79,14 @@ public class PlayerController : MonoBehaviour {
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
         RaycastHit2D hit = Physics2D.Raycast(worldPosition, Vector2.zero, Mathf.Infinity, 1 << UILayer);
 
-        if (gameTracker.currentState == GameTracker.STATE_PLAN) {
+        if (gameTracker.currentState == GameTracker.STATE_PLAN_PLAYER_1 || gameTracker.currentState == GameTracker.STATE_PLAN_PLAYER_2) {
             if (isAnyShipSelected) {
                 gameTracker.SetShipTargetPosition(selectedShipID, worldPosition);
             }
             else {
                 if (hit) {
                     PlayerShip playerShip = hit.transform.gameObject.GetComponent<PlayerShip>();
-                    if (playerShip && !isAnyShipSelected && playerShip.tag == "Player") {
+                    if (playerShip && playerShip.tag == gameTracker.currentTag) {
                         SelectShip(playerShip.ID);
                     }
                 }
