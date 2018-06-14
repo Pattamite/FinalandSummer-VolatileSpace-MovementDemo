@@ -25,6 +25,10 @@ public class PlayerShip : MonoBehaviour {
     private float currentTime = 0f;
 
     public PlayerShipWeapon weapon;
+    private PlayerShipEnergy energy;
+
+    public int maxHP = 1;
+    private int currentHP;
 
 	// Use this for initialization
 	void Start () {
@@ -45,6 +49,8 @@ public class PlayerShip : MonoBehaviour {
         isSelected = false;
         isActivate = false;
         isExecuteDone = false;
+        currentHP = maxHP;
+        energy = GetComponent<PlayerShipEnergy>();
     }
 
     private void Movement () {
@@ -108,5 +114,20 @@ public class PlayerShip : MonoBehaviour {
         currentTime = 0;
         isActivate = true;
         //Debug.Log(gameObject.name + " start");
+    }
+
+    public void GetHit(int damage) {
+        if(energy.currentShield < damage) {
+            currentHP -= (damage - energy.currentShield);
+            if (currentHP <= 0) Dead();
+        }
+    }
+
+    public void Attack(PlayerShip ship) {
+        ship.GetHit(energy.currentWeapon);
+    }
+
+    private void Dead () {
+        Destroy(gameObject);
     }
 }

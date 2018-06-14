@@ -9,6 +9,7 @@ public class PlayerShipWeapon : MonoBehaviour {
     public int maxAttackPerTurn = 1;
 
     private int attackCount;
+    private LineRenderer lineRenderer;
 	
 	void Start () {
         SetInitialValue();
@@ -22,6 +23,7 @@ public class PlayerShipWeapon : MonoBehaviour {
     private void SetInitialValue () {
         playerShip = transform.parent.GetComponent<PlayerShip>();
         if (!playerShip) Debug.LogError("PlayerShipWeapon (SetInitialValue): PlayerShip not found!");
+        lineRenderer = GetComponent<LineRenderer>();
     }
 
     private void OnTriggerEnter2D (Collider2D collision) {
@@ -35,6 +37,10 @@ public class PlayerShipWeapon : MonoBehaviour {
                     if(attackCount < maxAttackPerTurn) {
                         attackCount++;
                         Debug.Log("Attack " + other.name);
+                        playerShip.Attack(ship);
+                        StopCoroutine(RemoveDraw());
+                        DrawFire(ship);
+                        StartCoroutine(RemoveDraw());
                     }
                 }
             }
@@ -43,5 +49,17 @@ public class PlayerShipWeapon : MonoBehaviour {
 
     public void ResetAttackCount () {
         attackCount = 0;
+    }
+
+    private void DrawFire (PlayerShip target) {
+        lineRenderer.positionCount = 2;
+        lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(1, target.transform.position);
+    }
+
+    public IEnumerator RemoveDraw () {
+        yield return new WaitForSeconds(0.1f);
+        lineRenderer.positionCount = 0;
+        yield return null;
     }
 }

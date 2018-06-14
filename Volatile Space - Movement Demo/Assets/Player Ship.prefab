@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 114595315115443180}
   - component: {fileID: 120918867573641672}
   - component: {fileID: 60517574371064748}
+  - component: {fileID: 114622764547543084}
   m_Layer: 8
   m_Name: Weapon Trigger Box
   m_TagString: Untagged
@@ -342,6 +343,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAttackPerTurn: 1
+--- !u!114 &114622764547543084
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1885402521719154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114804735789550988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -364,6 +379,7 @@ MonoBehaviour:
   minDistance: 0.05
   timeLimit: 5
   weapon: {fileID: 114595315115443180}
+  maxHP: 1
 --- !u!120 &120207686505190676
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -489,12 +505,10 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 1
+    widthMultiplier: 0.06
     widthCurve:
       serializedVersion: 2
       m_Curve:
