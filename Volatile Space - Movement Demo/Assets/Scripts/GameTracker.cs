@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameTracker : MonoBehaviour {
     public int shipsPerSide = 3;
@@ -21,6 +22,9 @@ public class GameTracker : MonoBehaviour {
     public string currentTag { get; private set; }
 
     private PlayerController playerController;
+
+    public GameObject endGameScreen;
+    public Text endGameHeaderText;
 
     private void OnValidate () {
         if (playerShips.Length != (shipsPerSide * 2)) {
@@ -43,6 +47,7 @@ public class GameTracker : MonoBehaviour {
         playerController = FindObjectOfType<PlayerController>();
         currentState = STATE_PLAN_PLAYER_1;
         currentTag = player1Tag;
+        endGameScreen.SetActive(false);
     }
 
     public void SetShipsID () {
@@ -134,19 +139,19 @@ public class GameTracker : MonoBehaviour {
         }
 
         if(p1 == 0 || p2 == 0) {
+            endGameScreen.SetActive(true);
             if (p1 == 0 && p2 == 0) {
                 currentState = STATE_END_DRAW;
-                //show draw
+                endGameHeaderText.text = "Draw";
             }
             else if (p1 == 0) {
                 currentState = STATE_END_PLAYER_2;
-                //show player 2 win
+                endGameHeaderText.text = "Player 2 Win";
             }
             else if (p2 == 0) {
                 currentState = STATE_END_PLAYER_1;
-                //show player 1 win
+                endGameHeaderText.text = "Player 1 Win";
             }
-            //show restart or exit button
         }
     }
 }
