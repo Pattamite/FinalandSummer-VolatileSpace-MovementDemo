@@ -18,6 +18,8 @@ public class PlayerShipEnergy : MonoBehaviour {
     public int startWeapon;
     public int startMove;
 
+    private PlayerShip ship;
+
     void Start () {
         SetInitialValue();
     }
@@ -31,6 +33,7 @@ public class PlayerShipEnergy : MonoBehaviour {
         currentShield = 0;
         currentWeapon = 0;
         currentMove = 0;
+        ship = GetComponent<PlayerShip>();
         if (isDebug) {
             if(startShield + startWeapon + startMove > maxEnergy) {
                 currentShield = Mathf.Clamp((int)((float)startShield / ((float)(startShield + startWeapon + startMove)) * (float)maxEnergy), 0, maxShield);
@@ -51,9 +54,16 @@ public class PlayerShipEnergy : MonoBehaviour {
 
     public bool SetEnergy(int shield, int weapon, int move) {
         if((shield + weapon + move) <= maxEnergy) {
+            
             currentShield = Mathf.Clamp(shield, 0, maxShield);
             currentWeapon = Mathf.Clamp(weapon, 0, maxWeapon);
-            currentMove = Mathf.Clamp(move, 0, maxMove);
+            if (move < currentMove) {
+                currentMove = Mathf.Clamp(move, 0, maxMove);
+                ship.ReCalculateTargetPosition();
+            }
+            else {
+                currentMove = Mathf.Clamp(move, 0, maxMove);
+            }
 
             return true;
         }

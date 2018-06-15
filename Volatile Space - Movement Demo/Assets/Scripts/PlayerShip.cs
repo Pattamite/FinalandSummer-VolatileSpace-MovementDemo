@@ -222,4 +222,12 @@ public class PlayerShip : MonoBehaviour {
     private float GetMaxDistanceByAngle(float angle, float maxDistance) {
         return ((Mathf.Cos(angle * Mathf.Deg2Rad) + movementLimitValue) / (movementLimitValue + 1)) * maxDistance;
     }
+
+    public void ResetTargetPosition () {
+        SetTargetPosition(transform.position);
+    }
+
+    public void ReCalculateTargetPosition () {
+        SetTargetPosition(targetPosition);
+    }
 }
